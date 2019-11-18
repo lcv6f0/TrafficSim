@@ -24,45 +24,43 @@ public class Light {
     private boolean isGreen = false;
     private Circle light;
     private int time, yellowtime;
-    private String[] changes;
+    private String[] sequence;
     private int counter;
     private Timer timer = new Timer();
 
     public void setProperties(Properties p) {
 
-        changes = p.getProperty(light.getId()).split(",");
+        sequence = p.getProperty(light.getId()).split(",");
     }
 
     public Light(Properties properties, Circle light) {
-        changes = properties.getProperty(light.getId()).split(",");
-        time = Integer.parseInt(properties.getProperty("time"));
-//        yellowtime=Integer.parseInt(properties.getProperty("time"));
-        yellowtime = time;
-
+        sequence = properties.getProperty(light.getId()).split(","); //Pull line associate with lightid and convert to array
+        // below... pull the time and convert to integer and multiplly by 1000 to convert from miliseconds to seconds
+        time = Integer.parseInt(properties.getProperty("time")) * 1000;
         this.light = light;
         isGreen = light.getFill().equals(Paint.valueOf("green"));
 
-        switch (changes[counter]) {
+        switch (sequence[counter]) {
             case "G":
                 Platform.runLater(() -> {
                     light.setFill(Paint.valueOf("green"));
                 });
 
-                timer.schedule(new LightTask(), ((long) time) * 1000);
+                timer.schedule(new LightTask(), ((long) time));
                 break;
             case "Y":
                 Platform.runLater(() -> {
                     light.setFill(Paint.valueOf("yellow"));
                 });
 
-                timer.schedule(new LightTask(), ((long) yellowtime) * 1000);
+                timer.schedule(new LightTask(), ((long) time));
                 break;
             case "R":
                 Platform.runLater(() -> {
                     light.setFill(Paint.valueOf("red"));
                 });
 
-                timer.schedule(new LightTask(), ((long) time) * 1000);
+                timer.schedule(new LightTask(), ((long) time));
 
         }
         counter++;
@@ -104,27 +102,27 @@ public class Light {
 
         @Override
         public void run() {
-            switch (changes[counter % changes.length]) {
+            switch (sequence[counter % sequence.length]) {
                 case "G":
                     Platform.runLater(() -> {
                         light.setFill(Paint.valueOf("green"));
                     });
 
-                    timer.schedule(new LightTask(), ((long) time) * 1000);
+                    timer.schedule(new LightTask(), ((long) time));
                     break;
                 case "Y":
                     Platform.runLater(() -> {
                         light.setFill(Paint.valueOf("yellow"));
                     });
 
-                    timer.schedule(new LightTask(), ((long) time) * 1000);
+                    timer.schedule(new LightTask(), ((long) time)); 
                     break;
                 case "R":
                     Platform.runLater(() -> {
                         light.setFill(Paint.valueOf("red"));
                     });
 
-                    timer.schedule(new LightTask(), ((long) time) * 1000);
+                    timer.schedule(new LightTask(), ((long) time) );
 
             }
             counter++;

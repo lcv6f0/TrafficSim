@@ -52,15 +52,10 @@ import javafx.stage.Stage;
  */
 public class MainController implements Initializable {
 
-    private final int numcar = 100;
+    private final int numcar = 900;
     @FXML
     private Circle light01, light02, light03, light04, light05, light06, light07, light08, light09, light10, light11, light12, light13, light14, light15, light16, light17, light18, light19, light20;
-//    @FXML
-//    private Shape lane1, lane2, lane3, lane4, lane5, lane6, lane7, lane8, lane9, lane10, lane11, lane12, lane13, lane14, lane15, lane16, lane17, lane18, lane19, lane20;
-//    @FXML
-//    private Shape inter1, inter2, inter3, inter4, inter7, inter8, inter9, inter10, inter11, inter12, inter14, inter16, inter17, inter18, inter19, inter20;
-//    @FXML
-//    private Line end1, end2, end3, end4, end5, end6, end7, end8, end9, end10;
+
     @FXML
     private GridPane prefGrid;
     @FXML
@@ -132,7 +127,49 @@ public class MainController implements Initializable {
 //        prefGrid.setVisible(false);
         setInitColor();
         setRoadds();
+ File f = new File(car_Location_Root);
+            final String[] AllFIles = f.list();
 
+            Thread test = new Thread() {
+                @Override
+                public void run() {
+                    for (int i = 0; i < numcar; i++) {
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+                        try (FileInputStream d1 = new FileInputStream(car_Location_Root + AllFIles[new Random().nextInt(100) % 10])) {
+                            ImageView d = new ImageView();
+                            d.setImage(new Image((InputStream) d1));
+//                            d.setFitWidth(81);
+//                            d.setFitHeight(32);
+                            d.setFitWidth(50);
+                            d.setFitHeight(20);
+                            d.setX(500);
+                            d.setY(318 - 2);
+                            d.setRotate(180);
+                            d.setVisible(false);
+                           
+                            Car s = new Car((Roads) roads.clone(), d);
+                            s.setCarName("car " + i);
+                            s.setMainPane(mainPane);
+                            s.starter();
+                            Platform.runLater(() -> {
+                                mainPane.getChildren().add(d);
+                            });
+
+//                            carlist.add(s);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex) {
+                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+
+                   
+                }
+            };
+            test.run();
     }
 
     private boolean populateLight() {
@@ -511,14 +548,14 @@ public class MainController implements Initializable {
 
         int20.addPossiblePaths(end20);
 
-          roads.addRoad(ln3);
+              roads.addRoad(ln7);
         roads.addRoad(ln1);
 roads.addRoad(ln2);
-      
+      roads.addRoad(ln3);
         roads.addRoad(ln4);
         roads.addRoad(ln5);
         roads.addRoad(ln6);
-        roads.addRoad(ln7);
+    
         roads.addRoad(ln8);
         roads.addRoad(ln9);
         roads.addRoad(ln10);
@@ -769,69 +806,7 @@ roads.addRoad(ln2);
         //Have to put this somewhere else
         if (populateLight()) {
 //        if (true) {
-            File f = new File(car_Location_Root);
-            final String[] AllFIles = f.list();
-
-            Thread test = new Thread() {
-                @Override
-                public void run() {
-                    for (int i = 0; i < numcar; i++) {
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-                        try (FileInputStream d1 = new FileInputStream(car_Location_Root + AllFIles[new Random().nextInt(100) % 10])) {
-                            ImageView d = new ImageView();
-                            d.setImage(new Image((InputStream) d1));
-//                            d.setFitWidth(81);
-//                            d.setFitHeight(32);
-                            d.setFitWidth(50);
-                            d.setFitHeight(20);
-                            d.setX(500);
-                            d.setY(318 - 2);
-                            d.setRotate(180);
-                            d.setVisible(false);
-                           
-                            Car s = new Car((Roads) roads.clone(), d);
-                            s.setCarName("car " + i);
-                            s.setMainPane(mainPane);
-                            s.starter();
-                            Platform.runLater(() -> {
-                                mainPane.getChildren().add(d);
-                            });
-
-//                            carlist.add(s);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    }
-
-                    roads.done();
-//                    }.start();
-
-//                }
-//                new Thread() {
-//                    public void run() {
-//                        while (!carlist.isEmpty()) {
-//                            ArrayList<Car> rm = new ArrayList<>();
-//                            carlist.forEach((car) -> {
-//                                if (car.isCompleted()) {
-//                                    rm.add(car);
-//                                    Platform.runLater(() -> {
-//                                        mainPane.getChildren().remove(car.getCarImage());
-//                                    });
-//                                }
-//                            });
-//                            carlist.removeAll(rm);
-//                        }
-//                    }
-//                }.starter();
-//            }
-                }
-            };
-            test.start();
+            roads.done();
         }
     }
 

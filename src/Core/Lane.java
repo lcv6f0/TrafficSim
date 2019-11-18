@@ -34,12 +34,11 @@ public class Lane {
     private boolean isGreen = false;
     private boolean isPause = false;
     private ArrayQueue<Car> carQ, waitingQ = new ArrayQueue<>();
-    private int speed; //v67ert
-    private int yRate;
+
     int limit;
     private Car lastCar;
 
-    private boolean isHorizontal,vertical;
+    private boolean isHorizontal, vertical;
     private double a = new Random().nextDouble();
 //    public  final double rotation ;
 
@@ -92,15 +91,15 @@ public class Lane {
 //                }
 //            }
 
-        if (k < 3000) {
+        if (k < 1000) {
 
-            k = 3000;
+            k = 1000;
         }
 
     }
 
     public void disburse() {
-
+        int counter = 0;
         if (!waitingQ.isEmpty()) {
             Car ds = null;
 
@@ -161,9 +160,8 @@ public class Lane {
 
                 } else {
                     wasFull = true;
-                    System.out.println(name + " is full");
-                    System.out.println("Waiting for " + k + " seconds ");
-//                    if(isYes)
+                    counter++;
+                    System.out.println(counter + "car should have been disburse during the wait");
                     try {
 
                         Thread.sleep(k);
@@ -456,10 +454,6 @@ public class Lane {
         return rate;
     }
 
-    public void setyRate(int yRate) {
-        this.yRate = yRate;
-    }
-
     public synchronized boolean isIsRightToLeft() {
         return isRightToLeft;
     }
@@ -492,6 +486,7 @@ public class Lane {
     public synchronized boolean isIsHorizontal() {
         return isHorizontal;
     }
+
     public synchronized boolean isVertical() {
         return vertical;
     }
