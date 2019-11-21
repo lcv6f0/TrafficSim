@@ -6,28 +6,28 @@
 package Core;
 
 /**
+ * Might not need this
  *
- * @author Christian
+ * @author Luc
  */
 public class Statistics {
 
     //Create a list of possible paths, FOrmats TBD
-    
     private long total = 0;
 
     private int amount_Of_car;
 
-    public synchronized  void  addEntry(long time) {
-       total+=time;
+    public synchronized void addEntry(long time) {
+        total += time;
     }
 
     public void setAmount_Of_car(int amount_Of_car) {
         this.amount_Of_car = amount_Of_car;
     }
-    
+
     public void exit() {
- 
-        System.out.println(total/amount_Of_car);
+
+        System.out.println(total / amount_Of_car);
     }
 
 }

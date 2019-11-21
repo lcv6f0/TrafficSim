@@ -7,7 +7,7 @@ package Utils;
 
 /**
  *
- * @author Christian
+ * @author Luc
  * @param <E>
  */
 public class Pair<E, E1> {

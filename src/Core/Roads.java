@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class Roads implements Cloneable {
 //private static Random ran = new Random(14);
 
-    private static Random ran = new Random(14);
+    private static Random ran = new Random();
 
     private ArrayList<Lane> list;
 
@@ -78,7 +78,7 @@ public class Roads implements Cloneable {
             s1.add(tempLane);
             int counter = 0;
 
-            while (!tempLane.isIsEnd() || tempLane == null) {
+            while (!tempLane.isEnd() || tempLane == null) {
                 tempLane = tempLane.getNextPath();
                 if (tempLane != null) {
                     s1.add(tempLane);
@@ -113,7 +113,7 @@ public class Roads implements Cloneable {
             s1.add(tempLane);
             int counter = 0;
 
-            while (!tempLane.isIsEnd() || tempLane == null) {
+            while (!tempLane.isEnd() || tempLane == null) {
                 tempLane = tempLane.getNextPath();
                 if (tempLane != null) {
                     s1.add(tempLane);

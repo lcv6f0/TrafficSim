@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class ArrayQueue<E> implements Cloneable, Queue<E> {
 
-    public static final int DEFAULT_CAPACITY = 1000000;
+    public static final int DEFAULT_CAPACITY = 2000000;
     private int f, numElem;
     private int capacity;
     private E s[];
@@ -32,7 +32,7 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
     }
 
     // Returns the number of elements in the queue
-    public  int size() {
+    public int size() {
         return numElem;
     }
 
@@ -66,7 +66,7 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
     @Override
     public synchronized void enqueue(E item) throws QueueException {
         if (isFull()) {
-            throw new QueueException("Queue is full");
+            throw new QueueException("Queue is full, remove a few things first");
         }
         int freeIndex = (f + numElem) % s.length;
         s[freeIndex] = item;
@@ -77,7 +77,7 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
     @Override
     public synchronized E dequeue() throws QueueException {
         if (isEmpty()) {
-            throw new QueueException("Queue is empty");
+            throw new QueueException("Queue is empty, add something first");
         }
         E item = s[f];
         s[f] = null;
@@ -90,7 +90,7 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
     @Override
     public String toString() {
         int ff = f, r = (f + numElem) % s.length;
-        String str = "[";
+        String str = "<";
         if (size() > 0) {
             str += s[ff];
         }
@@ -99,9 +99,15 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
             str += ", " + s[ff];
             ff = (ff + 1) % s.length;
         }
-        return str + "]";
+        return str + ">";
     }
 
+    /**
+     * Return -1 if the item provided is not found
+     *
+     * @param item
+     * @return
+     */
     public synchronized int search(E item) {
 
         int ff = f, r = (f + numElem) % s.length;
@@ -120,16 +126,18 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
             counter++;
             ff = (ff + 1) % s.length;
         }
-
-//        int counter = 0;
-//        for (int i = f; i < s.length + f; i++) {
-//            if (s[i % s.length] == item) {
-//                return counter + 1;
-//            }
-//            if (s[i % s.length] != null) {
-//                counter++;
-//            }
-//        }
+// need to finish redign  this
+/*
+        int counter = 0;
+        for (int i = f; i < s.length + f; i++) {
+            if (s[i % s.length] == item) {
+                return counter + 1;
+            }
+            if (s[i % s.length] != null) {
+                counter++;
+            }
+        }
+         */
         return -1;
     }
 
@@ -148,17 +156,19 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
             previous = s[ff];
             ff = (ff + 1) % s.length;
         }
+// need to finish redign  this
+/*
+        for (int i = f; i < s.length + f; i++) {
 
-//        for (int i = f; i < s.length + f; i++) {
-//
-//            if (s[f] != null && s[f] == item) {
-//                return null;
-//            } else if (s[f] != null && s[i % s.length] == item && i % s.length > 0) {
-//                return s[(i - 1) % s.length];
-//            } else if (s[f] != null && s[i % s.length] == item && i % s.length == 0) {
-//                return s[numElem - 1];
-//            }
-//    }
+            if (s[f] != null && s[f] == item) {
+                return null;
+            } else if (s[f] != null && s[i % s.length] == item && i % s.length > 0) {
+                return s[(i - 1) % s.length];
+            } else if (s[f] != null && s[i % s.length] == item && i % s.length == 0) {
+                return s[numElem - 1];
+            }
+    }
+         */
         return null;
     }
 
@@ -177,8 +187,9 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
         int ff = f, r = (f + numElem) % s.length;
 
         if (size() > 0) {
-            if (s[ff] == item);
-            return s[(ff + 1) % s.length];
+            if (s[ff] == item) {
+                return s[(ff + 1) % s.length];
+            }
         }
         ff = (ff + 1) % s.length;
         while (ff != r) {
@@ -188,16 +199,18 @@ public class ArrayQueue<E> implements Cloneable, Queue<E> {
             ff = (ff + 1) % s.length;
         }
         return null;
+// need to finish redign  this
+/*
+        int index = search(item);
 
-//        int index = search(item);
-//
-//        if (s[(index + f + s.length - numElem) % s.length] == s[f]) {
-//            return null;
-//        } else if (s[f] != item) {
-//            return (s[(index + f + s.length - numElem) % s.length]);
-//        } else {
-//            return (s[(index + f + s.length - numElem) % s.length]);
-//        }
+        if (s[(index + f + s.length - numElem) % s.length] == s[f]) {
+            return null;
+        } else if (s[f] != item) {
+            return (s[(index + f + s.length - numElem) % s.length]);
+        } else {
+            return (s[(index + f + s.length - numElem) % s.length]);
+        }
+         */
     }
 
     public synchronized E getLastElement() {

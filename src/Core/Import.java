@@ -15,21 +15,18 @@ import java.util.Properties;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class Import {
 
-    private String fileLocation;
     private Properties p = null;
 
     public Properties Load(File file) {
 
         try {
             Reader reader = new InputStreamReader(new FileInputStream(file), "UTF-8");
-            //Reader reader = new InputStreamReader(new FileInputStream(path), "UTF-8");
             try (BufferedReader fin = new BufferedReader(reader)) {
                 p = new Properties();
-
                 p.load(fin);
             }
         } catch (IOException io) {

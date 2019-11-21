@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class TrafficSim extends Application {
 
@@ -37,8 +37,8 @@ public class TrafficSim extends Application {
         javafx.geometry.Rectangle2D bounds = screen.getVisualBounds();
         stage.setX(bounds.getMinX());
         stage.setY(bounds.getMinY());
-//        stage.setWidth(1169);
-        stage.setWidth(1600);
+       stage.setWidth(1169); //hide the light debug pane
+//        stage.setWidth(1600); //enable for debug
         stage.setHeight(760);
 
         stage.setScene(scene);

@@ -5,8 +5,6 @@
  */
 package Core;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,14 +14,14 @@ import javafx.scene.shape.Circle;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class Light {
 
     private double redSeconds, greenSeconds;
     private boolean isGreen = false;
     private Circle light;
-    private int time, yellowtime;
+    private int time;
     private String[] sequence;
     private int counter;
     private Timer timer = new Timer();
@@ -34,8 +32,11 @@ public class Light {
     }
 
     public Light(Properties properties, Circle light) {
-        sequence = properties.getProperty(light.getId()).split(","); //Pull line associate with lightid and convert to array
-        // below... pull the time and convert to integer and multiplly by 1000 to convert from miliseconds to seconds
+        //Pull line associate with lightid and convert to array
+        sequence = properties.getProperty(light.getId()).split(",");
+        /* Pull the time and convert to integer and 
+        multiply by 1000 to convert from milliseconds to seconds
+         */
         time = Integer.parseInt(properties.getProperty("time")) * 1000;
         this.light = light;
         isGreen = light.getFill().equals(Paint.valueOf("green"));
@@ -115,14 +116,14 @@ public class Light {
                         light.setFill(Paint.valueOf("yellow"));
                     });
 
-                    timer.schedule(new LightTask(), ((long) time)); 
+                    timer.schedule(new LightTask(), ((long) time));
                     break;
                 case "R":
                     Platform.runLater(() -> {
                         light.setFill(Paint.valueOf("red"));
                     });
 
-                    timer.schedule(new LightTask(), ((long) time) );
+                    timer.schedule(new LightTask(), ((long) time));
 
             }
             counter++;

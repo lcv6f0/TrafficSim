@@ -5,7 +5,6 @@
  */
 package Core;
 
-import Utils.QueueException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +16,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author Christian
+ * @author Luc
  */
 public class Car {
 
@@ -32,17 +31,17 @@ public class Car {
     private long initTimer;
     private Statistics st = new Statistics();
     private String name;
-    private Thread lightCheck;
-    private boolean pauseRequest, resumeRequest;
+
     private AnchorPane mainPane;
 
     private Lane[] sd;
-    public Thread checkForMovement;
+
     private boolean completed = false;
     private boolean moving;
     private int indexOfNextActLane = -1;
     private boolean wasFUll = false;
     private Car advise_car_behind;
+    private boolean adviseLaneOfMov;
     // var for 
 
     public Car(Roads roads, ImageView car) {
@@ -58,10 +57,11 @@ public class Car {
         this.name = name;
     }
 
-    public void pauseRequest() {
+    public void setAdviseLaneOfMov(boolean adviseLaneOfMov) {
+        this.adviseLaneOfMov = adviseLaneOfMov;
+    }
 
-        this.pauseRequest = true;
-        this.resumeRequest = false;
+    public void pauseRequest() {
 
         Car current = this;
         double nextlo;
@@ -72,16 +72,7 @@ public class Car {
         }.start();
 
 //        gTransition.pause();
-        pauseRequest = false;
         isPause = true;
-    }
-
-    public void specialPauseRequest() {
-
-        this.resumeRequest = false;
-
-        isPause = true;
-        gTransition.pause();
     }
 
     public boolean isPaused() {
@@ -93,8 +84,9 @@ public class Car {
     }
 
     public void advisedOfMov() {
-        prepChange();
 
+        setDistance(sd[currentLaneIndex], 0);
+        gTransition.play();
     }
 
     public void setAdvise_car_behind(Car advise_car_behind) {
@@ -116,22 +108,20 @@ public class Car {
         if (isPause) {
             if (isfirst) {
                 isPause = false;
-                pauseRequest = false;
-                resumeRequest = false;
 
-                if (changeLane()) {
-
-                    starter();
-                    gTransition.play();
-                }
+                prepChange();
             } else {
                 Car carBehind = sd[currentLaneIndex].getnextCar(this);
 
-                pauseRequest = false;
-                resumeRequest = false;
                 isPause = false;
+                 setDistance(sd[currentLaneIndex], 1);
+               gTransition.setDuration(Duration.millis(100));
                 gTransition.play();
-
+                 
+//                if (advise_car_behind != null) {
+//                    advise_car_behind.advisedOfMov();
+//                    advise_car_behind = null;
+//                }
                 if (carBehind != null) {
                     new Thread() {
                         @Override
@@ -148,9 +138,16 @@ public class Car {
                         }
                     }.start();
                 }
-
             }
+
         }
+    }
+
+    private void adviseLaneofMovement() {
+
+        sd[currentLaneIndex].enableNextCar();
+
+        adviseLaneOfMov = false;
     }
 
     private int checkNextcLane(int index) {
@@ -168,82 +165,73 @@ public class Car {
 
     }
 
+    private void changeLane() {
+        sd[currentLaneIndex].removeCar(this);
+        currentLaneIndex++;
+        sd[currentLaneIndex].addCar(this);
+        indexOfNextActLane = -1;
+        wasFUll = false;
+    }
+
     /**
-     * move from one path to anoter
+     * move from one path to another
      *
      * @param old
      * @param newLane
      */
-    private boolean changeLane() {
-        boolean success = false;
+    private boolean canBeChanged() {
         boolean isFull = false;
 
-        if (indexOfNextActLane == -1) {
+        if (indexOfNextActLane < 0) {
             indexOfNextActLane = checkNextcLane(currentLaneIndex + 1);
         }
 
-        if (indexOfNextActLane != -1) {
+        if (indexOfNextActLane > 0) {
             isFull = sd[indexOfNextActLane].isFull();
 
             if (!isFull) {
-                if (sd[currentLaneIndex].getName().equalsIgnoreCase("lane7")) {
-                    System.out.println("");
-                }
                 int size = 0;
                 for (int i = currentLaneIndex + 1; i < indexOfNextActLane + 1; i++) {
                     size += sd[i].getSize();
-                    
+
                 }
-                if (size >= sd[indexOfNextActLane].getQCapacity()) {
-                    System.out.println("Said that it was not full buut that wasnt the casase");
-                    isFull = true;
-                }
+                isFull = (size >= sd[indexOfNextActLane].getQCapacity());
             }
 
         }
         if (!isFull) {
             if (wasFUll) {
-                Car cc = sd[indexOfNextActLane].getLasCar();
+                Car cc = null;
+                if (indexOfNextActLane > 0) {
+                    cc = sd[indexOfNextActLane].getLasCar();
+                }
+
                 if (cc != null) {
                     if (cc.isPaused()) {
+                        setDistance(sd[currentLaneIndex], 0);
+                        cc.setAdvise_car_behind(this);
                         return false;
-
-                    } else {
-
-                        sd[currentLaneIndex].removeCar(this);
-                        if (!sd[currentLaneIndex].isIsEnd()) {
-                            currentLaneIndex++;
-                            sd[currentLaneIndex].addCar(this);
-                            indexOfNextActLane = -1;
-                            wasFUll = false;
-                            return true;
-
-                        } else {
-                            System.out.println("is end");
-                            return false;
-                        }
 
                     }
                 }
-            } else {
-
-                sd[currentLaneIndex].removeCar(this);
-                if (!sd[currentLaneIndex].isIsEnd()) {
-                    currentLaneIndex++;
-                    sd[currentLaneIndex].addCar(this);
-                    indexOfNextActLane = -1;
-                    wasFUll = false;
-                    return true;
-
-                } else {
-                    System.out.println("is end");
-                    return false;
-                }
-
             }
+        } else {
+            wasFUll = true;
+            Car cc = null;
+            if (indexOfNextActLane > 0) {
+                cc = sd[indexOfNextActLane].getLasCar();
+            }
+
+            if (cc != null) {
+//                    if (cc.isPaused()) {
+                setDistance(sd[currentLaneIndex], 0);
+                cc.setAdvise_car_behind(this);
+            }
+            return false;
+
         }
-        wasFUll = true;
-        return false;
+
+        return true;
 
     }
 
@@ -269,7 +257,7 @@ public class Car {
             if (distance == 0) {
                 gTransition.setFromY(0);
                 gTransition.setToY(0);
-            } else if (n.getyRate() != 0) {
+            } else if (n.getyRate() != 0.0) {
                 gTransition.setFromY(0);
                 gTransition.setToY(n.getyRate());
             }
@@ -291,7 +279,7 @@ public class Car {
         }
     }
 
-    private void prox(Lane n, int lowthreshold, int tooLowthreshold) {
+    private void proximity(Lane n, int lowthreshold, int tooLowthreshold) {
         double myLocation = 0;
         double carInFrontLocation = 0;
         try {
@@ -317,20 +305,23 @@ public class Car {
             if (carInFront != null) {
                 if ((carInFront.getCurrentLane().isIsHorizontal() == n.isIsHorizontal())) {
 
-                    if ( Math.abs(carInFrontLocation - myLocation) < lowthreshold) {
+                    if (Math.abs(carInFrontLocation - myLocation) < lowthreshold) {
                         if (Math.abs(carInFrontLocation - myLocation) < tooLowthreshold) {
 
 //pause when they are too close
                             isPause = true;
                             setDistance(n, 0);
+                            
 
                         } else {
                             isPause = false;
-                            setDistance(n, 10);
+                            setDistance(n, 8);
                             gTransition.setDuration(Duration.millis(600));
                             if (advise_car_behind != null) {
                                 advise_car_behind.advisedOfMov();
-                            }
+                                advise_car_behind = null;
+                            } 
+                           
                         }
 
                     } else {
@@ -338,8 +329,28 @@ public class Car {
                         setDistance(n, 15);
                         gTransition.setDuration(Duration.millis(100));
 
+                        if (advise_car_behind != null) {
+                            advise_car_behind.advisedOfMov();
+                            advise_car_behind = null;
+                        }
+                        if (adviseLaneOfMov) {
+                            adviseLaneofMovement();
+                        }
+
                     }
                 }
+            }else{
+                isPause = false;
+                        setDistance(n, 15);
+                        gTransition.setDuration(Duration.millis(100));
+
+                        if (advise_car_behind != null) {
+                            advise_car_behind.advisedOfMov();
+                            advise_car_behind = null;
+                        }
+                        if (adviseLaneOfMov) {
+                            adviseLaneofMovement();
+                        }
             }
         } catch (NullPointerException sn) {
             System.err.println("null pointer expcpetion in tesdt for car " + name);
@@ -374,6 +385,14 @@ public class Car {
             System.out.println("I'm on lane " + n.getName());
             System.out.println("X location: " + car.getX());
             System.out.println("Y Location: " + car.getY());
+            System.out.println("Visible " + car.isVisible());
+            car.setVisible(true);
+        });
+        car.setOnContextMenuRequested((d) -> {
+            Platform.runLater(() -> {
+                car.toFront();
+                car.setVisible(true);
+            });
         });
         setDistance(n, 15);
 
@@ -381,11 +400,13 @@ public class Car {
             if (gTransition != null) {
                 gTransition.setDuration(Duration.millis(100));
 // setting the new location of the car
-
-                car.setX(car.getX() + car.getTranslateX());
-                car.setY(car.getY() + car.getTranslateY());
-                car.setTranslateX(0);
-                car.setTranslateY(0);
+                Platform.runLater(() -> {
+                    car.setX(car.getX() + car.getTranslateX());
+                    car.setY(car.getY() + car.getTranslateY());
+                    car.setTranslateX(0);
+                    car.setTranslateY(0);
+                    car.setVisible(true);
+                });
 
                 if (endReached()) {
                     if (n.isGreen()) {
@@ -396,7 +417,8 @@ public class Car {
                     }
                 } else {
 
-                    prox(sd[currentLaneIndex], 80, 60);
+                    proximity(sd[currentLaneIndex], 90, 70);
+
                     gTransition.play();
                 }
 
@@ -408,48 +430,38 @@ public class Car {
 
     private void prepChange() {
         try {
-            if (currentLaneIndex + 1 < sd.length) {
-
-                if (changeLane()) {
-
+            if (!sd[currentLaneIndex].isEnd()) {
+                if (name.equalsIgnoreCase("car 8")) {
+                    System.out.println("");
+                }
+                if (canBeChanged()) {
+                    if (adviseLaneOfMov) {
+                            adviseLaneofMovement();
+                        }
+                    changeLane();
                     Lane n = sd[currentLaneIndex];
                     System.out.println(n);
                     gTransition = new TranslateTransition();
                     gTransition.setNode(car);
                     movement(n);
-                    car.setX(n.getBeginingX());
-                    car.setY(n.getBeginingy());
-                    car.setRotate(n.getAngle());
+                    Platform.runLater(() -> {
+                        car.setX(n.getBeginingX());
+                        car.setY(n.getBeginingy());
+                        car.setRotate(n.getAngle());
+                    });
+
                     gTransition.setDuration(Duration.millis(100));
                     gTransition.play();
                     isPause = false;
-                } else {
-                    try {
-                        if (indexOfNextActLane == -1) {
-                            indexOfNextActLane = checkNextcLane(currentLaneIndex + 1);
-                        }
-
-                        if (indexOfNextActLane != -1) {
-                            Car cc = sd[indexOfNextActLane].getLasCar();
-                            if (cc != null) {
-
-                                setDistance(sd[currentLaneIndex], 0);
-                                cc.setAdvise_car_behind(this);
-
-                            }
-                        }
-
-                    } catch (Exception d) {
-                        System.err.println("Exception in prep waiting change:");
-                        System.err.println("car " + name);
-                    }
-
+                }else {
+                    isPause=true;
                 }
             } else {
-                gTransition = null;
+
                 sd[currentLaneIndex].removeCar(this);
-                car.setVisible(false);
+
                 Platform.runLater(() -> {
+                    car.setVisible(false);
                     mainPane.getChildren().remove(car);
                 });
             }
@@ -462,8 +474,10 @@ public class Car {
     public void close() {
         try {
             gTransition.stop();
+            Platform.runLater(() -> {
+                mainPane.getChildren().remove(car);
+            });
 
-            mainPane.getChildren().remove(car);
         } catch (Exception m) {
 
         }
@@ -479,14 +493,16 @@ public class Car {
         if (currentLaneIndex == 0) {
             n.addCar(this);
         }
-        car.setX(n.getBeginingX());
-        car.setY(n.getBeginingy());
-        car.setRotate(n.getAngle());
-        gTransition = new TranslateTransition();
-        gTransition.setDuration(Duration.millis(100));
+        Platform.runLater(() -> {
+            car.setX(n.getBeginingX());
+            car.setY(n.getBeginingy());
+            car.setRotate(n.getAngle());
+            gTransition = new TranslateTransition();
+            gTransition.setDuration(Duration.millis(100));
 
-        gTransition.setNode(car);
-        movement(n);
+            gTransition.setNode(car);
+            movement(n);
+        });
 
     }
 
@@ -504,6 +520,7 @@ public class Car {
 
     public void startSimulation() {
         Platform.runLater(() -> {
+            car.setVisible(true);
             gTransition.play();
         });
     }

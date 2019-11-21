@@ -7,7 +7,7 @@ package Utils;
 
 /**
  *
- * @author L
+ * @author Luc
  */
 public class QueueException extends Exception {
 
