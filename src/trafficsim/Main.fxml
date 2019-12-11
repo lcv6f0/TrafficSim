@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.ArcTo?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.HLineTo?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.MoveTo?>
+<?import javafx.scene.shape.Path?>
+<?import javafx.scene.shape.QuadCurveTo?>
+<?import javafx.scene.shape.VLineTo?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" maxHeight="755.0" maxWidth="1169.0" minHeight="755.0" minWidth="1500.0" prefHeight="730.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trafficsim.MainController">
+    <children>
+        <Path fx:id="inter20" fill="#1f93ff00" layoutX="825.0" layoutY="12.0" rotate="180.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <HLineTo absolute="false" x="-50.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" y="10.0" />
+                <VLineTo y="400.0" />
+            </elements>
+            <rotationAxis>
+                <Point3D y="1.0" z="12.0" />
+            </rotationAxis>
+        </Path>
+      <Path fx:id="inter16" fill="#1f93ff00" layoutX="305.0" layoutY="337.0" rotate="180.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+         <elements>
+            <MoveTo x="50.0" />
+            <VLineTo y="150.0" />
+            <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" x="10.0" y="20.0" />
+            <QuadCurveTo absolute="false" controlX="50.0" x="510.0" />
+         </elements>
+      </Path>
+        <ImageView fx:id="img" fitHeight="730.0" fitWidth="1169.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
+            <image>
+                <Image url="@../../../../../../Downloads/map.jpeg" />
+            </image>
+        </ImageView>
+        <Path fx:id="inter7" fill="#1f93ff00" layoutX="280.0" layoutY="258.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <VLineTo y="135.0" />
+                <ArcTo XAxisRotation="144.5" absolute="false" radiusX="5.0" radiusY="5.0" x="10.0" y="20.0" />
+                <QuadCurveTo absolute="false" controlX="50.0" x="30.0" />
+            </elements>
+        </Path>
+        <Path fx:id="inter17" fill="#1f93ff00" layoutX="751.0" layoutY="372.0" rotate="-180.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <VLineTo y="130.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" x="10.0" y="20.0" />
+                <QuadCurveTo absolute="false" controlX="50.0" x="30.0" />
+            </elements>
+        </Path>
+        <MenuBar layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Preference" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Circle fx:id="light17" fill="#eeeeee" layoutX="837.0" layoutY="521.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light14" fill="#eeeeee" layoutX="951.0" layoutY="521.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light15" fill="#eeeeee" layoutX="913.0" layoutY="521.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light10" fill="#eeeeee" layoutX="350.0" layoutY="355.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light08" fill="WHITE" layoutX="350.0" layoutY="282.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light09" fill="#eeeeee" layoutX="350.0" layoutY="318.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light07" fill="#eeeeee" layoutX="332.0" layoutY="252.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light03" fill="#eeeeee" layoutX="195.0" layoutY="451.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light06" fill="#eeeeee" layoutX="293.0" layoutY="252.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light05" fill="#eeeeee" layoutX="253.0" layoutY="252.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light02" fill="#eeeeee" layoutX="195.0" layoutY="488.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light01" fill="#eeeeee" layoutX="195.0" layoutY="518.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light04" fill="#eeeeee" layoutX="213.0" layoutY="252.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light19" fill="#eeeeee" layoutX="815.0" layoutY="445.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light20" fill="WHITE" layoutX="815.0" layoutY="409.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light18" fill="#eeeeee" layoutX="815.0" layoutY="484.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light13" fill="#eeeeee" layoutX="964.0" layoutY="338.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light11" fill="WHITE" layoutX="964.0" layoutY="265.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="light12" fill="#eeeeee" layoutX="964.0" layoutY="301.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fx:id="car" fitHeight="32.0" fitWidth="81.0" layoutX="891.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+            <image>
+                <Image url="@../../../../Eclipse/Taffic%20Sim/resources/car3.png" />
+            </image>
+            <rotationAxis>
+                <Point3D z="180.0" />
+            </rotationAxis>
+        </ImageView>
+        <Line fx:id="lane12" endX="200.0" layoutX="964.0" layoutY="302.0" rotate="180.0" stroke="#42ff2d" strokeWidth="2.0" />
+        <Line fx:id="lane20" endX="-610.0" layoutX="965.0" layoutY="410.0" rotate="-180.0" startX="-160.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="lane19" endX="620.0" layoutX="193.0" layoutY="447.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="lane18" endX="625.0" layoutX="192.0" layoutY="484.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="lane5" endX="220.0" fill="RED" layoutX="145.0" layoutY="136.0" rotate="90.0" stroke="#00ff2a" strokeWidth="2.0" />
+        <Line fx:id="lane7" endX="220.0" fill="RED" layoutX="223.0" layoutY="136.0" rotate="90.0" stroke="#00ff2a" strokeWidth="2.0" />
+        <Line fx:id="lane4" endX="220.0" fill="RED" layoutX="105.0" layoutY="136.0" rotate="90.0" stroke="#00ff2a" strokeWidth="2.0" />
+        <Line fx:id="end5" endX="200.0" fill="RED" layoutY="275.0" rotate="180.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="end4" endX="200.0" fill="RED" layoutY="306.0" rotate="180.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="lane3" endX="200.0" fill="RED" layoutY="445.0" stroke="#16ff01" strokeWidth="2.0" />
+        <Line fx:id="lane2" endX="185.0" fill="RED" layoutX="1.0" layoutY="486.0" stroke="#16ff01" strokeWidth="2.0" />
+        <Line fx:id="lane1" endX="200.0" fill="RED" layoutX="7.0" layoutY="518.0" stroke="#16ff01" strokeWidth="2.0" />
+        <Line fx:id="end2" endX="495.0" fill="RED" layoutX="6.0" layoutY="498.0" rotate="90.0" startX="-0.0" stroke="RED" strokeWidth="4.0" />
+        <Line fx:id="end3" endX="490.0" fill="RED" layoutX="49.0" layoutY="503.0" rotate="90.0" stroke="RED" strokeWidth="5.0" />
+        <Line fx:id="lane17" endX="230.0" fill="RED" layoutX="723.0" layoutY="642.0" rotate="270.0" stroke="#00ff1f" strokeWidth="2.0" />
+        <Line fx:id="lane16" endX="230.0" fill="RED" layoutX="756.0" layoutY="632.0" rotate="270.0" stroke="#00ff1f" strokeWidth="2.0" />
+        <Line fx:id="lane15" endX="230.0" fill="RED" layoutX="798.0" layoutY="637.0" rotate="270.0" stroke="#00ff1f" strokeWidth="2.0" />
+        <Line fx:id="lane14" endX="230.0" fill="RED" layoutX="837.0" layoutY="637.0" rotate="270.0" stroke="#00ff1f" strokeWidth="2.0" />
+        <Line fx:id="end6" endX="490.0" fill="RED" layoutX="625.0" layoutY="272.0" rotate="270.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="end7" endX="490.0" fill="RED" layoutX="664.0" layoutY="273.0" rotate="270.0" stroke="RED" strokeWidth="5.0" />
+        <Line fx:id="end10" endX="190.0" fill="RED" layoutX="978.0" layoutY="512.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="end9" endX="200.0" fill="RED" layoutX="970.0" layoutY="475.0" stroke="RED" strokeWidth="2.0" />
+        <Line fx:id="inter8" endX="50.0" layoutX="296.0" layoutY="287.0" rotate="-172.1" startX="-100.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="inter9" endX="50.0" layoutX="294.0" layoutY="322.0" rotate="-170.0" startX="-100.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="inter3" endX="18.0" layoutX="304.0" layoutY="445.0" startX="-100.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="inter2" endX="18.0" layoutX="300.0" layoutY="486.0" startX="-100.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="lane13" endX="100.0" layoutX="1073.0" layoutY="339.0" rotate="180.0" startX="-100.0" stroke="#42ff2d" strokeWidth="2.0" />
+        <Line fx:id="inter12" endX="100.0" layoutX="855.0" layoutY="320.0" rotate="180.0" startX="-45.0" stroke="PINK" strokeWidth="2.0" />
+        <Line fx:id="inter19" endX="45.0" layoutX="922.0" layoutY="459.0" rotate="8.7" startX="-100.0" stroke="#167786" strokeWidth="4.0" />
+        <Circle fx:id="light16" fill="#eeeeee" layoutX="872.0" layoutY="521.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Line fx:id="inter18" endX="45.0" layoutX="922.0" layoutY="498.0" rotate="8.7" startX="-100.0" stroke="#167786" strokeWidth="4.0" />
+        <Line fx:id="lane8" endX="610.0" layoutX="350.0" layoutY="301.0" rotate="-180.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="lane9" endX="600.0" layoutX="362.0" layoutY="338.0" rotate="-180.0" stroke="WHITE" strokeWidth="4.0" />
+        <Line fx:id="lane6" endX="220.0" fill="RED" layoutX="185.0" layoutY="143.0" rotate="90.0" stroke="#00ff2a" strokeWidth="2.0" />
+        <Line fx:id="lane11" endX="100.0" layoutX="1063.0" layoutY="262.0" rotate="180.0" startX="-100.0" stroke="#42ff2d" strokeWidth="2.0" />
+        <Line fx:id="lane10" endX="450.0" layoutX="355.0" layoutY="378.0" rotate="-180.0" stroke="WHITE" strokeWidth="4.0" />
+        <Path fx:id="inter11" fill="#1f93ff00" layoutX="908.0" layoutY="6.0" rotate="-180.0" stroke="#1220ff" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <HLineTo absolute="false" x="-20.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" y="10.0" />
+                <VLineTo y="260.0" />
+            </elements>
+            <rotationAxis>
+                <Point3D x="12.0" z="1.0" />
+            </rotationAxis>
+        </Path>
+        <Path fx:id="inter1" fill="#1f93ff00" layoutX="174.0" layoutY="517.0" rotate="-180.0" stroke="#0030ff" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <HLineTo absolute="false" x="-10.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" y="10.0" />
+                <VLineTo y="250.0" />
+            </elements>
+            <rotationAxis>
+                <Point3D y="1.0" />
+            </rotationAxis>
+        </Path>
+        <Path fx:id="inter4" fill="#1f93ff00" layoutX="-67.0" layoutY="242.0" rotate="180.0" stroke="#3f00ff" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <VLineTo y="10.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" y="10.0" />
+                <HLineTo absolute="false" x="240.0" />
+            </elements>
+            <rotationAxis>
+                <Point3D y="1.0" />
+            </rotationAxis>
+        </Path>
+        <Path fx:id="inter14" fill="#1f93ff00" layoutX="896.0" layoutY="513.0" stroke="#000fff" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <VLineTo y="-5.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" x="2.0" y="-10.0" />
+                <HLineTo absolute="false" x="230.0" />
+            </elements>
+        </Path>
+        <Button fx:id="start" layoutX="560.0" layoutY="143.0" mnemonicParsing="false" onAction="#initCar" text="Start" />
+        <Path fx:id="inter10" fill="#1f93ff00" layoutX="305.0" layoutY="376.0" stroke="RED" strokeType="INSIDE" strokeWidth="3.0">
+            <elements>
+                <MoveTo x="50.0" />
+                <HLineTo absolute="false" x="-60.0" />
+                <ArcTo absolute="false" radiusX="5.0" radiusY="5.0" y="10.0" />
+                <VLineTo y="400.0" />
+            </elements>
+        </Path>
+        <GridPane fx:id="prefGrid" layoutX="1178.0" layoutY="95.0" AnchorPane.leftAnchor="1200.0" AnchorPane.rightAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Light1" GridPane.rowIndex="1" />
+                <TextField fx:id="light01_green" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="light01_red" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="light02_green" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="light02_red" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <TextField fx:id="light03_green" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="light03_red" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <TextField fx:id="light04_green" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="light04_red" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                <TextField fx:id="light05_green" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <TextField fx:id="light05_red" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                <TextField fx:id="light06_green" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                <TextField fx:id="light06_red" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                <TextField fx:id="light07_green" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <TextField fx:id="light07_red" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                <TextField fx:id="light08_green" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                <TextField fx:id="light08_red" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                <TextField fx:id="light09_green" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                <TextField fx:id="light09_red" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                <TextField fx:id="light10_green" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                <TextField fx:id="light10_red" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                <TextField fx:id="light11_green" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                <TextField fx:id="light11_red" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                <TextField fx:id="light12_green" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                <TextField fx:id="light12_red" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                <TextField fx:id="light13_green" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                <TextField fx:id="light13_red" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                <TextField fx:id="light14_green" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                <TextField fx:id="light14_red" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                <TextField fx:id="light15_green" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                <TextField fx:id="light15_red" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+                <TextField fx:id="light16_green" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                <TextField fx:id="light16_red" GridPane.columnIndex="2" GridPane.rowIndex="16" />
+                <TextField fx:id="light17_green" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+                <TextField fx:id="light17_red" GridPane.columnIndex="2" GridPane.rowIndex="17" />
+                <TextField fx:id="light18_green" GridPane.columnIndex="1" GridPane.rowIndex="18" />
+                <TextField fx:id="light18_red" GridPane.columnIndex="2" GridPane.rowIndex="18" />
+                <TextField fx:id="light19_green" GridPane.columnIndex="1" GridPane.rowIndex="19" />
+                <TextField fx:id="light19_red" GridPane.columnIndex="2" GridPane.rowIndex="19" />
+                <TextField fx:id="light20_green" GridPane.columnIndex="1" GridPane.rowIndex="20" />
+                <TextField fx:id="light20_red" GridPane.columnIndex="2" GridPane.rowIndex="20" />
+                <Label text="Light2" GridPane.rowIndex="2" />
+                <Label text="Light 3" GridPane.rowIndex="3" />
+                <Label text="Light 4" GridPane.rowIndex="4" />
+                <Label text="Light 5" GridPane.rowIndex="5" />
+                <Label text="Light 6" GridPane.rowIndex="6" />
+                <Label text="Light 7" GridPane.rowIndex="7" />
+                <Label text="Light 8" GridPane.rowIndex="8" />
+                <Label text="Light 9" GridPane.rowIndex="9" />
+                <Label text="Light 10" GridPane.rowIndex="10" />
+                <Label text="Light 11" GridPane.rowIndex="11" />
+                <Label text="Light 12" GridPane.rowIndex="12" />
+                <Label text="Light 13" GridPane.rowIndex="13" />
+                <Label text="Light 14" GridPane.rowIndex="14" />
+                <Label text="Light 15" GridPane.rowIndex="15" />
+                <Label text="Light 16" GridPane.rowIndex="16" />
+                <Label text="Light 17" GridPane.rowIndex="17" />
+                <Label text="Light 18" GridPane.rowIndex="18" />
+                <Label text="Light 19" GridPane.rowIndex="19" />
+                <Label text="Light 20" GridPane.rowIndex="20" />
+                <Label text="Green" GridPane.columnIndex="1" />
+                <Label text="Red" GridPane.columnIndex="2" />
+                
+                <CheckBox fx:id="g1" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                <CheckBox fx:id="g2" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <CheckBox fx:id="g3" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <CheckBox fx:id="g4" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                <CheckBox fx:id="g5" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                <CheckBox fx:id="g6" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                <CheckBox fx:id="g7" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                <CheckBox fx:id="g8" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                <CheckBox fx:id="g9" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                <CheckBox fx:id="g10" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                <CheckBox fx:id="g11" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                <CheckBox fx:id="g12" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                <CheckBox fx:id="g13" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                <CheckBox fx:id="g14" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                <CheckBox fx:id="g15" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="15" />
+                <CheckBox fx:id="g16" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="16" />
+                <CheckBox fx:id="g17" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="17" />
+                <CheckBox fx:id="g18" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="18" />
+                <CheckBox fx:id="g19" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="19" />
+            <CheckBox fx:id="g20" mnemonicParsing="false" text="Green" GridPane.columnIndex="3" GridPane.rowIndex="20" />
+            <Label text="Init" GridPane.columnIndex="3" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
