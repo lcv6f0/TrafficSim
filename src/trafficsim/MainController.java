@@ -138,7 +138,7 @@ public class MainController implements Initializable {
 //                    new Thread() {
 //                        @Override
 //                        public void run() {
-                    try (FileInputStream d1 = new FileInputStream(car_Location_Root + AllFIles[new Random().nextInt(100) % 10])) {
+                    try (FileInputStream d1 = new FileInputStream(car_Location_Root + AllFIles[new Random().nextInt(100) % AllFIles.length])) {
                         ImageView d = new ImageView();
                         d.setImage(new Image((InputStream) d1));
 //                            d.setFitWidth(81);

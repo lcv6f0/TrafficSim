@@ -116,11 +116,7 @@ public class Car {
                  setDistance(sd[currentLaneIndex], 1);
                gTransition.setDuration(Duration.millis(100));
                 gTransition.play();
-                 
-//                if (advise_car_behind != null) {
-//                    advise_car_behind.advisedOfMov();
-//                    advise_car_behind = null;
-//                }
+
                 if (carBehind != null) {
                     new Thread() {
                         @Override
@@ -379,14 +375,7 @@ public class Car {
     }
 
     private void movement(Lane n) {
-        car.setOnMouseClicked((g) -> {
-            System.out.println("I'm car " + name);
-            System.out.println("I'm on lane " + n.getName());
-            System.out.println("X location: " + car.getX());
-            System.out.println("Y Location: " + car.getY());
-            System.out.println("Visible " + car.isVisible());
-            car.setVisible(true);
-        });
+     
         car.setOnContextMenuRequested((d) -> {
             Platform.runLater(() -> {
                 car.toFront();
@@ -430,16 +419,14 @@ public class Car {
     private void prepChange() {
         try {
             if (!sd[currentLaneIndex].isEnd()) {
-                if (name.equalsIgnoreCase("car 8")) {
-                    System.out.println("");
-                }
+                
                 if (canBeChanged()) {
                     if (adviseLaneOfMov) {
                             adviseLaneofMovement();
                         }
                     changeLane();
                     Lane n = sd[currentLaneIndex];
-                    System.out.println(n);
+                  
                     gTransition = new TranslateTransition();
                     gTransition.setNode(car);
                     movement(n);

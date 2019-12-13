@@ -88,7 +88,9 @@ public class Lane {
     public void setDisburseRate(int mult) {
         k = (long) (a * mult * Math.PI) * 1000;
 
-        k = 500;
+        while (k < 1000) {
+            k = (long) (new Random().nextDouble() * mult * Math.PI) * 1000;
+        }
 
     }
 
@@ -142,81 +144,7 @@ public class Lane {
     public void disburse() {
         startTime = System.currentTimeMillis();
         enableNextCar();
-        /*
-        int counter = 0;
-        if (!waitingQ.isEmpty()) {
-            Car ds = null;
 
-            boolean wasFull = false;
-            while (!waitingQ.isEmpty()) {
-                Car cc = carQ.getLastElement();
-
-                boolean isYes = false;
-                if (cc != null) {
-                    isYes = cc.isPaused();
-                }
-                if (!carQ.isFull()) {
-                    if (wasFull) {
-
-                        if (!isYes && carQ.size() < limit) {
-                            wasFull = false;
-                            try {
-                                ds = waitingQ.dequeue();
-                                carQ.enqueue(ds);
-                                lastCar = ds;
-                                ds.getCarImage().setVisible(true);
-                                ds.startSimulation();
-
-//                        }
-                                Thread.sleep(k);
-//                        }); 
-                            } catch (QueueException ex) {
-                                Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (Exception sd) {
-                                System.out.println("Cant disburse for lane " + name + " eception: " + sd.getMessage());
-//                        System.out.println("Cant disburse for lane " + name);
-                            }
-                        }
-
-                    } else {
-
-                        try {
-                            ds = waitingQ.dequeue();
-                            carQ.enqueue(ds);
-                            lastCar = ds;
-                            ds.startSimulation();
-                            ds.getCarImage().setVisible(true);
-//                        }
-
-                            Thread.sleep(k);
-//                        }); 
-                        } catch (QueueException ex) {
-                            Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (Exception sd) {
-                            System.out.println("Cant disburse for lane " + name + " eception: " + sd.getMessage());
-//                        System.out.println("Cant disburse for lane " + name);
-                        }
-                    }
-
-                } else {
-                    wasFull = true;
-                    counter++;
-                    System.out.println(counter + "car should have been disburse during the wait");
-                    try {
-
-                        Thread.sleep(k);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-            }
-        }
-         */
     }
 
     public Lane(ArrayList<Lane> possiblePaths) {
@@ -288,12 +216,12 @@ public class Lane {
             if (beginingX - endX != 0) {
                 limit = (int) (Math.abs(beginingX - endX) / (31 + 20));
                 isHorizontal = true;
-                System.out.println("Limit of lane " + name + ": " + limit);
+//                System.out.println("Limit of lane " + name + ": " + limit);
             } else if (beginingy - endY != 0) {
 
                 isHorizontal = false;
                 limit = (int) (Math.abs(endY - beginingy) / (31 + 20));
-                System.out.println("Limit of lane " + name + ": " + limit);
+//                System.out.println("Limit of lane " + name + ": " + limit);
             }
             carQ = new ArrayQueue<Car>(limit);
         } else {
@@ -302,7 +230,7 @@ public class Lane {
 
     }
 
-    public void addCoordonate(int beginingX, int beginingY, int endX, int endY, double angle,  double rate) {
+    public void addCoordonate(int beginingX, int beginingY, int endX, int endY, double angle, double rate) {
 
         this.beginingX = beginingX;
         this.beginingy = beginingY;
@@ -377,21 +305,6 @@ public class Lane {
             if (nextCar != null) {
                 requestPause = nextCar.isPaused();
             }
-//            if (isPause || requestPause) {
-//                new Thread() {
-//                    public void run() {
-//                        car.pauseRequest();
-//                    }
-//
-//                }.start();
-//
-//                try {
-//
-//                    carQ.enqueue(car);
-//                } catch (QueueException ex) {
-//                    Logger.getLogger(Lane.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
             try {
                 carQ.enqueue(car);
                 lastCar = car;
